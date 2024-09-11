@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .calculator {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 220px;
+        }
+
+        .display {
+            background-color: #333;
+            color: #fff;
+            font-size: 2em;
+            padding: 10px;
+            text-align: right;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .btn {
+            background-color: #eee;
+            border: 1px solid #ccc;
+            padding: 20px;
+            font-size: 1.5em;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #ddd;
+        }
+
+        .btn:active {
+            background-color: #ccc;
+        }
+
+        .btn-operator {
+            background-color: #907459;
+            color: white;
+        }
+
+        .btn-operator:hover {
+            background-color: #7b5d3f;
+        }
+
+        .btn-operator:active {
+            background-color: #6f5037;
+        }
+
+        .btn-percentage {
+            background-color: #4e674f;
+            color: white;
+        }
+
+        .btn-percentage:hover {
+            background-color: #49634a;
+        }
+
+        .btn-percentage:active {
+            background-color: #4e6c50;
+        }
+
+        .btn-clear {
+            background-color: #735959;
+            color: white;
+        }
+
+        .btn-clear:hover {
+            background-color: #4f3b3b;
+        }
+
+        .btn-clear:active {
+            background-color: #664848;
+        }
+
+        .btn-equal {
+            background-color: #77787a;
+            color: white;
+            grid-column: span 2;
+        }
+
+        .btn-equal:hover {
+            background-color: #b1b5bb;
+        }
+
+        .btn-equal:active {
+            background-color: #9a9fa5;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display" id="display">0</div>
+        <div class="buttons">
+            <button class="btn btn-clear" onclick="clearDisplay()">C</button>
+            <button class="btn btn-percentage" onclick="appendToDisplay('%')">%</button>
+            <button class="btn btn-operator" onclick="appendToDisplay('/')">/</button>
+            <button class="btn btn-operator" onclick="appendToDisplay('*')">*</button>
+            <button class="btn" onclick="appendToDisplay('7')">7</button>
+            <button class="btn" onclick="appendToDisplay('8')">8</button>
+            <button class="btn" onclick="appendToDisplay('9')">9</button>
+            <button class="btn btn-operator" onclick="appendToDisplay('-')">-</button>
+            <button class="btn" onclick="appendToDisplay('4')">4</button>
+            <button class="btn" onclick="appendToDisplay('5')">5</button>
+            <button class="btn" onclick="appendToDisplay('6')">6</button>
+            <button class="btn btn-operator" onclick="appendToDisplay('+')">+</button>
+            <button class="btn" onclick="appendToDisplay('1')">1</button>
+            <button class="btn" onclick="appendToDisplay('2')">2</button>
+            <button class="btn" onclick="appendToDisplay('3')">3</button>
+            <button class="btn btn-equal" onclick="calculateResult()">=</button>
+            <button class="btn" onclick="appendToDisplay('0')">0</button>
+            <button class="btn" onclick="appendToDisplay('.')">.</button>
+        </div>
+    </div>
+    <script>
+        function clearDisplay() {
+            document.getElementById('display').innerText = '0';
+        }
+
+        function appendToDisplay(value) {
+            let display = document.getElementById('display');
+            if (display.innerText === '0' && value !== '%') {
+                display.innerText = value;
+            } else {
+                display.innerText += value;
+            }
+        }
+
+        function calculateResult() {
+            let display = document.getElementById('display');
+            try {
+                if (display.innerText.includes('%')) {
+                    let parts = display.innerText.split('%');
+                    display.innerText = eval(parts[0]) * (parseFloat(parts[1]) / 100);
+                } else {
+                    display.innerText = eval(display.innerText) || '0';
+                }
+            } catch {
+                display.innerText = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+
+
